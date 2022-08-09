@@ -30,18 +30,14 @@ TEST_GROUP(FirstTestGroup)
 {
 };
 
-TEST(FirstTestGroup, Create_1)
-{
-   CHECK(create('a') != NULL);
-   
-}
-
-TEST(FirstTestGroup, Create_2)
+TEST(FirstTestGroup, Create)
 {
 	struct element* p = create('a');
-	printf("%c\n", (*p).val);
+	CHECK(p != NULL);
 	CHECK_EQUAL((*p).val,'a');
-   
+	CHECK((*p).prev == NULL);
+	CHECK((*p).next == NULL);
+    free(p);
 }
 
 int main(int ac, char** av){
