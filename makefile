@@ -9,7 +9,7 @@ TEST_OBJS=tests.o  # Add your TEST obj files here
 
 TEST_EXE=tests.bin
 
-code: linkedlist.o $(INCS)
+code: $(OBJS) $(INCS)
 
 run_tests: tests
 	./$(TEST_EXE)

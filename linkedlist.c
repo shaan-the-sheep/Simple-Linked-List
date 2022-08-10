@@ -28,10 +28,8 @@
 
 struct element* create(char val){
 	struct element* p_elem;
-	p_elem = (struct element*) malloc (sizeof(struct element));
+	p_elem = (struct element*) calloc (1,sizeof(struct element));
 	(*p_elem).val = val;
-	(*p_elem).prev = NULL;
-	(*p_elem).next = NULL;
 	return p_elem;
 }	
 
