@@ -26,10 +26,35 @@
 #include <stdlib.h>
 #include "linkedlist.h"
 
-struct element* create(char val){
+element* create(char val){
 	struct element* p_elem;
 	p_elem = (struct element*) calloc (1,sizeof(struct element));
 	(*p_elem).val = val;
 	return p_elem;
 }	
 
+struct element* getLast(struct element* l){
+	while ((*l).next != NULL){
+		l = (*l).next;
+	} 
+	return l;
+}
+
+struct element* append(char val, struct element* l){
+	struct element* p_elem;
+	p_elem = (struct element*) calloc (1,sizeof(struct element));
+	(*p_elem).val = val;
+	struct element* last_elem = getLast(l);
+	(*last_elem).next = p_elem;
+	(*p_elem).prev = last_elem;
+	return p_elem;
+}
+
+void printList(struct element* l){
+	while (1){
+		printf("%c", (*l).val);
+		if ((*l).next == NULL)
+			return;
+		l = (*l).next;
+	}
+}

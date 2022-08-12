@@ -7,9 +7,11 @@ struct element {
 	struct element* next; 
 };
 
-struct element* create(char val); 
+typedef struct element element;
 
-int append(char value);
+element* create(char val); 
+
+struct element* append(char value, struct element* l);
 
 int add(int index, char value); 
 
@@ -19,6 +21,8 @@ int change(int index, char value);
 
 void deleteList(); 
 
-void printList(); 
+void printList(struct element* l); 
+
+struct element* getLast(struct element* l);
 
 #endif

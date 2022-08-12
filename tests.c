@@ -40,6 +40,37 @@ TEST(FirstTestGroup, Create)
     free(p);
 }
 
+TEST(FirstTestGroup, Append)
+{
+	struct element* p = create('a');
+	struct element* new_elem = append('b', p);
+	CHECK_EQUAL((*new_elem).val,'b');
+	free(p);
+	free(new_elem);
+}	
+
+TEST(FirstTestGroup, printList)
+{
+	struct element* p = create('a');
+	struct element* new_elem = append('b', p);
+	printList(p);
+	free(p);
+	free(new_elem);
+}
+
+TEST(FirstTestGroup, getLast)
+{
+	struct element* p = create('a');
+	struct element* last = getLast(p);
+	CHECK_EQUAL((*last).val,'a');
+	(void)append('b', p);
+	(void)append('c', p);
+	(void)append('d', p);
+	last = getLast(p);
+	CHECK_EQUAL((*last).val,'d');
+	free(p);
+}
+			
 int main(int ac, char** av){
 	return CommandLineTestRunner::RunAllTests(ac,av);
 }
