@@ -9,20 +9,20 @@ struct element {
 
 typedef struct element element;
 
-element* create(char val); 
+element* create(char val); //done
 
-struct element* append(char value, struct element* l);
+element* append(char value, struct element* l); //done
 
-int add(int index, char value); 
+element* add(element* l, int index, char value); 
 
-int del(int index);
+element* del(element* l, int index);
 
-int change(int index, char value);
+element* change(element* l, int index, char value); //done
 
 void deleteList(); 
 
-void printList(struct element* l); 
+void printList(struct element* l); //done
 
-struct element* getLast(struct element* l);
+element* getLast(struct element* l);
 
 #endif

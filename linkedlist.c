@@ -26,21 +26,48 @@
 #include <stdlib.h>
 #include "linkedlist.h"
 
+static int getLength(element* l){
+	if (l == NULL)
+		return -1;
+	int length = 1;
+	while ((*l).next != NULL){
+		length++;
+		l = (*l).next;
+	}
+	return length;
+}
+
+/*
+static int checkIndex(element* l, int index){
+	int length = getLength(l);
+	if (index > length + 1){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+}
+*/
+	
 element* create(char val){
-	struct element* p_elem;
-	p_elem = (struct element*) calloc (1,sizeof(struct element));
+	element* p_elem;
+	p_elem = (element*) calloc (1,sizeof(element));
 	(*p_elem).val = val;
 	return p_elem;
 }	
 
-struct element* getLast(struct element* l){
+element* getLast(element* l){
+	if (l == NULL)
+		return NULL;
 	while ((*l).next != NULL){
 		l = (*l).next;
 	} 
 	return l;
 }
 
-struct element* append(char val, struct element* l){
+element* append(char val, element* l){
+	if (l == NULL)
+		return NULL;	
 	struct element* p_elem;
 	p_elem = (struct element*) calloc (1,sizeof(struct element));
 	(*p_elem).val = val;
@@ -50,7 +77,7 @@ struct element* append(char val, struct element* l){
 	return p_elem;
 }
 
-void printList(struct element* l){
+void printList(element* l){	
 	while (1){
 		printf("%c", (*l).val);
 		if ((*l).next == NULL)
@@ -58,3 +85,32 @@ void printList(struct element* l){
 		l = (*l).next;
 	}
 }
+
+element* change(element* l, int index, char value){
+	if (l == NULL)
+		return NULL;	
+	for(int i = 0; i < index - 1; i++){
+		l = (*l).next;
+	}
+	(*l).val = value;
+	return l;
+}
+
+element* add(element* l, int index, char value){
+	if (l == NULL)
+		return NULL;
+	if (getLength(l) != -1 && index > getLength(l)+1)
+		return NULL;
+		
+	for(int i = 0; i < index - 1; i++){
+		l = (*l).next;
+	}
+	element* p_elem = (element*) calloc (1,sizeof(element));
+	(*p_elem).next = l;
+	(*p_elem).val = value;
+	(*p_elem).prev = (*l).prev;
+	(*l).prev = p_elem;
+	return l;
+}
+
+

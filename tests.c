@@ -32,7 +32,7 @@ TEST_GROUP(FirstTestGroup)
 
 TEST(FirstTestGroup, Create)
 {
-	struct element* p = create('a');
+	element* p = create('a');
 	CHECK(p != NULL);
 	CHECK_EQUAL((*p).val,'a');
 	CHECK((*p).prev == NULL);
@@ -42,8 +42,8 @@ TEST(FirstTestGroup, Create)
 
 TEST(FirstTestGroup, Append)
 {
-	struct element* p = create('a');
-	struct element* new_elem = append('b', p);
+	element* p = create('a');
+	element* new_elem = append('b', p);
 	CHECK_EQUAL((*new_elem).val,'b');
 	free(p);
 	free(new_elem);
@@ -51,8 +51,8 @@ TEST(FirstTestGroup, Append)
 
 TEST(FirstTestGroup, printList)
 {
-	struct element* p = create('a');
-	struct element* new_elem = append('b', p);
+	element* p = create('a');
+	element* new_elem = append('b', p);
 	printList(p);
 	free(p);
 	free(new_elem);
@@ -60,8 +60,8 @@ TEST(FirstTestGroup, printList)
 
 TEST(FirstTestGroup, getLast)
 {
-	struct element* p = create('a');
-	struct element* last = getLast(p);
+	element* p = create('a');
+	element* last = getLast(p);
 	CHECK_EQUAL((*last).val,'a');
 	(void)append('b', p);
 	(void)append('c', p);
@@ -70,7 +70,31 @@ TEST(FirstTestGroup, getLast)
 	CHECK_EQUAL((*last).val,'d');
 	free(p);
 }
-			
+
+TEST(FirstTestGroup, change)
+{
+	element* p = create('a');
+	append('b', p);
+	append('c', p);
+	append('d', p);
+	change(p, 3, '!');
+	printf("Changed list: ");
+	printList(p);
+	printf("\n");
+}
+
+TEST(FirstTestGroup, add)
+{
+	element* p = create('a');
+	append('b', p);
+	append('c', p);
+	append('d', p);
+	add(p, 2, '!');
+	printf("Testing add: ");
+	printList(p);
+	printf("\n");
+}
+				
 int main(int ac, char** av){
 	return CommandLineTestRunner::RunAllTests(ac,av);
 }
