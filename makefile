@@ -1,6 +1,6 @@
 CC=g++
 
-CFLAGS=-Wall
+CFLAGS=-Wall -g
 
 LIBS=-lCppUTest
 INCS=linkedlist.h  # Add your include files here
@@ -16,7 +16,7 @@ run_tests: tests
 
 test: $(TEST_OBJS)
 
-tests: code $(TEST_OBJS)
+tests: code test
 	g++ -o $(TEST_EXE) $(OBJS) $(TEST_OBJS) $(LIBS)
 
 .PHONY: clean

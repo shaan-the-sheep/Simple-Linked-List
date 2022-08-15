@@ -99,17 +99,20 @@ element* change(element* l, int index, char value){
 element* add(element* l, int index, char value){
 	if (l == NULL)
 		return NULL;
-	if (getLength(l) != -1 && index > getLength(l)+1)
+
+	int n = getLength(l);
+	if (n == -1 || index > n)
 		return NULL;
 		
 	for(int i = 0; i < index - 1; i++){
 		l = (*l).next;
 	}
-	element* p_elem = (element*) calloc (1,sizeof(element));
-	(*p_elem).next = l;
-	(*p_elem).val = value;
-	(*p_elem).prev = (*l).prev;
-	(*l).prev = p_elem;
+	element* new_elem = (element*) calloc (1,sizeof(element));
+	(*new_elem).next = l;
+	(*new_elem).val = value;
+	(*new_elem).prev = (*l).prev;
+	(*l).prev->next = new_elem;
+	(*l).prev = new_elem;
 	return l;
 }
 

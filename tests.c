@@ -85,11 +85,21 @@ TEST(FirstTestGroup, change)
 
 TEST(FirstTestGroup, add)
 {
+	element* a;
 	element* p = create('a');
 	append('b', p);
 	append('c', p);
 	append('d', p);
-	add(p, 2, '!');
+	append('e', p);		// count = 5
+	a = add(p, 2, '!');		// count = 6
+	CHECK_FALSE(a == NULL);
+	a = add(p, 6, '?');		// count = 7
+	CHECK_FALSE(a == NULL);
+
+	// Try to add elem at very end, which should fail
+	a = add(p, 8, '/');
+	CHECK(a == NULL);
+
 	printf("Testing add: ");
 	printList(p);
 	printf("\n");
