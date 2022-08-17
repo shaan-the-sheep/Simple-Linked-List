@@ -34,9 +34,9 @@ TEST(FirstTestGroup, Create)
 {
 	element* p = create('a');
 	CHECK(p != NULL);
-	CHECK_EQUAL((*p).val,'a');
-	CHECK((*p).prev == NULL);
-	CHECK((*p).next == NULL);
+	CHECK_EQUAL(p->val,'a');
+	CHECK_EQUAL(p->prev, (element*)NULL);
+	CHECK_EQUAL(p->next, (element*)NULL);
     free(p);
 }
 
@@ -44,7 +44,7 @@ TEST(FirstTestGroup, Append)
 {
 	element* p = create('a');
 	element* new_elem = append('b', p);
-	CHECK_EQUAL((*new_elem).val,'b');
+	CHECK_EQUAL(new_elem->val,'b');
 	free(p);
 	free(new_elem);
 }	
@@ -62,12 +62,12 @@ TEST(FirstTestGroup, getLast)
 {
 	element* p = create('a');
 	element* last = getLast(p);
-	CHECK_EQUAL((*last).val,'a');
+	CHECK_EQUAL(last->val,'a');
 	(void)append('b', p);
 	(void)append('c', p);
 	(void)append('d', p);
 	last = getLast(p);
-	CHECK_EQUAL((*last).val,'d');
+	CHECK_EQUAL(last->val,'d');
 	free(p);
 }
 
@@ -79,7 +79,7 @@ TEST(FirstTestGroup, change)
 	append('d', p);
 	element* l = changeAtIndex(p, 3, '!');
 	CHECK_FALSE(l == NULL);
-	CHECK_EQUAL((*l).val, '!');
+	CHECK_EQUAL(l->val, '!');
 }
 
 TEST(FirstTestGroup, add)
@@ -124,7 +124,6 @@ TEST(FirstTestGroup, deleteList)
 	CHECK(deleteList(p) == 0);
 
 	CHECK(deleteList(NULL) == 0);
-
 }	
 					
 int main(int ac, char** av){

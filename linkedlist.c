@@ -30,9 +30,9 @@ static int getLength(element* l){
 	if (l == NULL)
 		return -1;
 	int length = 1;
-	while ((*l).next != NULL){
+	while (l->next != NULL){
 		length++;
-		l = (*l).next;
+		l = l->next;
 	}
 	return length;
 }
@@ -46,35 +46,23 @@ element* getAtIndex(element* l, int index){
 		return NULL;
 		
 	for(int i = 0; i < index - 1; i++){
-		l = (*l).next;
+		l = l->next;
 	}
 	return l;
 }	
-
-/*
-static int checkIndex(element* l, int index){
-	int length = getLength(l);
-	if (index > length + 1){
-		return 0;
-	}
-	else{
-		return 1;
-	}
-}
-*/
 	
 element* create(char val){
 	element* p_elem;
 	p_elem = (element*) calloc (1,sizeof(element));
-	(*p_elem).val = val;
+	p_elem->val = val;
 	return p_elem;
 }	
 
 element* getLast(element* l){
 	if (l == NULL)
 		return NULL;
-	while ((*l).next != NULL){
-		l = (*l).next;
+	while (l->next != NULL){
+		l = l->next;
 	} 
 	return l;
 }
@@ -84,7 +72,7 @@ element* append(char val, element* l){
 		return NULL;	
 	struct element* p_elem;
 	p_elem = (struct element*) calloc (1,sizeof(struct element));
-	(*p_elem).val = val;
+	p_elem->val = val;
 	struct element* last_elem = getLast(l);
 	(*last_elem).next = p_elem;
 	(*p_elem).prev = last_elem;
@@ -94,7 +82,7 @@ element* append(char val, element* l){
 void printList(element* l){	
 	while (1){
 		printf("%c", (*l).val);
-		if ((*l).next == NULL)
+		if (l->next == NULL)
 			return;
 		l = (*l).next;
 	}
@@ -104,7 +92,7 @@ element* changeAtIndex(element* l, int index, char value){
 	element* p = getAtIndex(l, index);
 	if (p == NULL)
 		return NULL;
-	(*p).val = value;
+	p->val = value;
 	return p;
 }
 
@@ -117,14 +105,14 @@ element* addAtIndex(element* l, int index, char value){
 		return NULL;
 		
 	for(int i = 0; i < index - 1; i++){
-		l = (*l).next;
+		l = l->next;
 	}
 	element* new_elem = (element*) calloc (1,sizeof(element));
-	(*new_elem).next = l;
-	(*new_elem).val = value;
-	(*new_elem).prev = (*l).prev;
-	(*l).prev->next = new_elem;
-	(*l).prev = new_elem;
+	new_elem->next = l;
+	new_elem->val = value;
+	new_elem->prev = (*l).prev;
+	l->prev->next = new_elem;
+	l->prev = new_elem;
 	return l;
 }
 
@@ -139,8 +127,8 @@ int delAtIndex(element* l, int index){
 	for(int i = 0; i < index - 1; i++){
 		l = (*l).next;
 	}
-	(*l).prev->next = (*l).next;
-	(*l).next->prev = (*l).prev;
+	l->prev->next = l->next;
+	l->next->prev = l->prev;
 	free(l);
 	return 0;
 }		
@@ -149,8 +137,8 @@ int deleteList(element*l){
 	if (l == NULL)
 		return 0;
 	element* next, *head = l;
-	while ((*head).next != NULL){
-		next = (*head).next;
+	while (head->next != NULL){
+		next = head->next;
 		free(head);
 		head = next;
 	}
