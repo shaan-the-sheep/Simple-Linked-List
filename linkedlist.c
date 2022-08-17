@@ -37,6 +37,20 @@ static int getLength(element* l){
 	return length;
 }
 
+element* getAtIndex(element* l, int index){
+	if (l == NULL)
+		return NULL;
+
+	int n = getLength(l);
+	if (n == -1 || index > n)
+		return NULL;
+		
+	for(int i = 0; i < index - 1; i++){
+		l = (*l).next;
+	}
+	return l;
+}	
+
 /*
 static int checkIndex(element* l, int index){
 	int length = getLength(l);
@@ -86,17 +100,15 @@ void printList(element* l){
 	}
 }
 
-element* change(element* l, int index, char value){
-	if (l == NULL)
-		return NULL;	
-	for(int i = 0; i < index - 1; i++){
-		l = (*l).next;
-	}
-	(*l).val = value;
-	return l;
+element* changeAtIndex(element* l, int index, char value){
+	element* p = getAtIndex(l, index);
+	if (p == NULL)
+		return NULL;
+	(*p).val = value;
+	return p;
 }
 
-element* add(element* l, int index, char value){
+element* addAtIndex(element* l, int index, char value){
 	if (l == NULL)
 		return NULL;
 
@@ -116,4 +128,34 @@ element* add(element* l, int index, char value){
 	return l;
 }
 
+int delAtIndex(element* l, int index){
+	if (l == NULL)
+		return -1;
+
+	int n = getLength(l);
+	if (n == -1 || index > n)
+		return -1;
+		
+	for(int i = 0; i < index - 1; i++){
+		l = (*l).next;
+	}
+	(*l).prev->next = (*l).next;
+	(*l).next->prev = (*l).prev;
+	free(l);
+	return 0;
+}		
+
+int deleteList(element*l){
+	if (l == NULL)
+		return 0;
+	element* next, *head = l;
+	while ((*head).next != NULL){
+		next = (*head).next;
+		free(head);
+		head = next;
+	}
+	free(head);
+	return 0;
+}
+		
 

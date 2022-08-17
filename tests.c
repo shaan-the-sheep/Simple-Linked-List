@@ -77,10 +77,9 @@ TEST(FirstTestGroup, change)
 	append('b', p);
 	append('c', p);
 	append('d', p);
-	change(p, 3, '!');
-	printf("Changed list: ");
-	printList(p);
-	printf("\n");
+	element* l = changeAtIndex(p, 3, '!');
+	CHECK_FALSE(l == NULL);
+	CHECK_EQUAL((*l).val, '!');
 }
 
 TEST(FirstTestGroup, add)
@@ -91,20 +90,43 @@ TEST(FirstTestGroup, add)
 	append('c', p);
 	append('d', p);
 	append('e', p);		// count = 5
-	a = add(p, 2, '!');		// count = 6
+	a = addAtIndex(p, 2, '!');		// count = 6
 	CHECK_FALSE(a == NULL);
-	a = add(p, 6, '?');		// count = 7
+	element* z = getAtIndex(p, 2);
+	CHECK_EQUAL(z->val, '!');
+	a = addAtIndex(p, 6, '?');		// count = 7
 	CHECK_FALSE(a == NULL);
+	z = getAtIndex(p, 6);
+	CHECK_EQUAL(z->val, '?');
 
 	// Try to add elem at very end, which should fail
-	a = add(p, 8, '/');
+	a = addAtIndex(p, 8, '/');
 	CHECK(a == NULL);
-
-	printf("Testing add: ");
-	printList(p);
-	printf("\n");
 }
-				
+
+TEST(FirstTestGroup, deleteAtIndex)
+{
+	element* p = create('a');
+	append('b', p);
+	append('c', p);
+	append('d', p);
+	delAtIndex(p, 3);
+	element* e = getAtIndex(p, 3);
+	CHECK_EQUAL(e->val, 'd');
+}
+
+TEST(FirstTestGroup, deleteList)
+{
+	element* p = create('a');
+	append('b', p);
+	append('c', p);
+	append('d', p);
+	CHECK(deleteList(p) == 0);
+
+	CHECK(deleteList(NULL) == 0);
+
+}	
+					
 int main(int ac, char** av){
 	return CommandLineTestRunner::RunAllTests(ac,av);
 }
