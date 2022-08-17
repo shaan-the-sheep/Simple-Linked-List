@@ -82,7 +82,7 @@ TEST(FirstTestGroup, change)
 	CHECK_EQUAL(l->val, '!');
 }
 
-TEST(FirstTestGroup, add)
+TEST(FirstTestGroup, addAtIndex)
 {
 	element* a;
 	element* p = create('a');
@@ -110,9 +110,11 @@ TEST(FirstTestGroup, deleteAtIndex)
 	append('b', p);
 	append('c', p);
 	append('d', p);
-	delAtIndex(p, 3);
+	CHECK_EQUAL(delAtIndex(p, 3), 0);
 	element* e = getAtIndex(p, 3);
 	CHECK_EQUAL(e->val, 'd');
+
+    CHECK_EQUAL(delAtIndex(p, 99), -1);
 }
 
 TEST(FirstTestGroup, deleteList)

@@ -44,11 +44,12 @@ element* getAtIndex(element* l, int index){
 	int n = getLength(l);
 	if (n == -1 || index > n)
 		return NULL;
-		
+
+	element* e = l;	
 	for(int i = 0; i < index - 1; i++){
-		l = l->next;
+		e = e->next;
 	}
-	return l;
+	return e;
 }	
 	
 element* create(char val){
@@ -97,39 +98,27 @@ element* changeAtIndex(element* l, int index, char value){
 }
 
 element* addAtIndex(element* l, int index, char value){
-	if (l == NULL)
-		return NULL;
+    element* at_index = getAtIndex(l, index);
+    if (at_index == NULL)
+        return NULL;
 
-	int n = getLength(l);
-	if (n == -1 || index > n)
-		return NULL;
-		
-	for(int i = 0; i < index - 1; i++){
-		l = l->next;
-	}
-	element* new_elem = (element*) calloc (1,sizeof(element));
-	new_elem->next = l;
+    element* new_elem = (element*) calloc (1,sizeof(element));
+	new_elem->next = at_index;
 	new_elem->val = value;
-	new_elem->prev = (*l).prev;
-	l->prev->next = new_elem;
-	l->prev = new_elem;
-	return l;
+	new_elem->prev = (*at_index).prev;
+	at_index->prev->next = new_elem;
+	at_index->prev = new_elem;
+	return at_index;
 }
 
 int delAtIndex(element* l, int index){
-	if (l == NULL)
-		return -1;
+    element* at_index = getAtIndex(l, index);
+    if (at_index == NULL)
+        return -1;
 
-	int n = getLength(l);
-	if (n == -1 || index > n)
-		return -1;
-		
-	for(int i = 0; i < index - 1; i++){
-		l = (*l).next;
-	}
-	l->prev->next = l->next;
-	l->next->prev = l->prev;
-	free(l);
+    at_index->prev->next = at_index->next;
+	at_index->next->prev = at_index->prev;
+	free(at_index);
 	return 0;
 }		
 
