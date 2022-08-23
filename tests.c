@@ -126,7 +126,23 @@ TEST(FirstTestGroup, deleteList)
 	CHECK(deleteList(p) == 0);
 
 	CHECK(deleteList(NULL) == 0);
+}
+
+
+TEST(FirstTestGroup, printReverse)
+{	
+	element* p = create('a');
+	append('b', p);
+	append('c', p);
+	append('d', p);
+	printf("List to reverse: \n");
+	printList(p);
+	printf("\nReversed list: ");
+	printReverse(p);
+	printf("\n");
+
 }	
+
 					
 int main(int ac, char** av){
 	return CommandLineTestRunner::RunAllTests(ac,av);

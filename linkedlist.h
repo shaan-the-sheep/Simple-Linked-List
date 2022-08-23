@@ -4,7 +4,7 @@
 struct element { 
 	char val; 
 	struct element* prev; 
-	struct element* next; 
+	struct element* next;
 };
 
 typedef struct element element;
@@ -19,12 +19,14 @@ int delAtIndex(element* l, int index); //done
 
 element* changeAtIndex(element* l, int index, char value); //done
 
-int deleteList(element* l); 
+int deleteList(element* l); //done
 
 void printList(struct element* l); //done
 
 element* getLast(struct element* l); //done
 
-element* getAtIndex(element* l, int index);
+element* getAtIndex(element* l, int index); //done
+
+void printReverse(element* l);
 
 #endif

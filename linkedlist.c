@@ -77,15 +77,16 @@ element* append(char val, element* l){
 	struct element* last_elem = getLast(l);
 	(*last_elem).next = p_elem;
 	(*p_elem).prev = last_elem;
+	l->prev = p_elem;
 	return p_elem;
 }
 
 void printList(element* l){	
 	while (1){
-		printf("%c", (*l).val);
+		printf("%c", l->val);
 		if (l->next == NULL)
 			return;
-		l = (*l).next;
+		l = l->next;
 	}
 }
 
@@ -122,7 +123,7 @@ int delAtIndex(element* l, int index){
 	return 0;
 }		
 
-int deleteList(element*l){
+int deleteList(element* l){
 	if (l == NULL)
 		return 0;
 	element* next, *head = l;
@@ -134,5 +135,14 @@ int deleteList(element*l){
 	free(head);
 	return 0;
 }
-		
+
+void printReverse(element* l){
+	element* head = l;
+	while (l->prev != head){
+		l = l->prev;
+		printf("%c", l->val);
+	}
+	l = l->prev;
+	printf("%c", l->val);
+}	 		
 
